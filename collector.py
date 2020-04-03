@@ -24,7 +24,7 @@ def get_last_check():
 def parse_data(raw_html):
     BSparser = bs4.BeautifulSoup(raw_html, 'html.parser').find('div', {'class': 'd-map'})
 
-    scrap_data = {'date': ' '.join(BSparser.find('div', {'class': 'd-map__title'}).text.split(' ')[-2::])}
+    scrap_data = {'date': ' '.join(BSparser.find('div', {'class': 'd-map__title'}).text.split(' ')[-3::])}
 
     fields = (("sick_total", "sick_day"), ("healed_total", "healed_day"), ("die_total", "die_day"))
     for i, counter in enumerate(BSparser.find('div', {'class': 'd-map__counter'}).find_all('div')):
