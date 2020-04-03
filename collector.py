@@ -28,7 +28,7 @@ def parse_data(raw_html):
 
     fields = (("sick_total", "sick_day"), ("healed_total", "healed_day"), ("die_total", "die_day"))
     for i, counter in enumerate(BSparser.find('div', {'class': 'd-map__counter'}).find_all('div')):
-        values = list(map(int, counter.find('h3').text.split('+')))
+        values = list(map(int, counter.find('h3').text.replace(' ', '').split('+')))
         scrap_data[fields[i][0]] = values[0]
         scrap_data[fields[i][1]] = 0 if len(values) == 1 else values[1]
 
@@ -83,3 +83,4 @@ def update_stat():
 
 if __name__ == '__main__':
     print(update_stat())
+    print(get_last_check())
