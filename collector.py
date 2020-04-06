@@ -22,7 +22,7 @@ def get_last_check():
 
 
 def parse_data(raw_html):
-    BSparser = bs4.BeautifulSoup(raw_html, 'html.parser').find('div', {'class': 'd-map'})
+    BSparser = bs4.BeautifulSoup(raw_html, 'html.parser').find('div', {'class': 'cv-popup__container'})
 
     scrap_data = {'date': ' '.join(BSparser.find('div', {'class': 'd-map__title'}).text.split(' ')[-3::])}
 
