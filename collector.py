@@ -20,6 +20,14 @@ def get_last_check():
     conn.close()
     return last_record
 
+def get_last_check_by_region():
+    conn = connect_db()
+    curs = conn.cursor()
+    curs.execute('''SELECT * FROM russian_region WHERE timestamp=(SELECT timestamp FROM russian_region \
+    ORDER BY timestamp DESC LIMIT 0,1) ORDER BY sick DESC;''')
+    last_record = curs.fetchall()
+    conn.close()
+    return last_record
 
 def parse_data(raw_html):
     BSparser = bs4.BeautifulSoup(raw_html, 'html.parser').find('div', {'class': 'cv-popup__container'})
@@ -83,4 +91,7 @@ def update_stat():
 
 if __name__ == '__main__':
     print(update_stat())
-    print(get_last_check())
+    #print(get_last_check())
+    #print(get_last_check_by_region())
+    #s = '\n'.join(['|'.join(list(map(str, i[2:]))) for i in get_last_check_by_region()])
+    #print(s)
