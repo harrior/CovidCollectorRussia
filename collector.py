@@ -64,14 +64,15 @@ def connect_db():
 def update_db(data):
     conn = connect_db()
     curs = conn.cursor()
+    timestamp = time.time()
     record_data = (
-        time.time(), data['date'], data['sick_total'], data['sick_day'], data['healed_total'], data['healed_day'],
+        timestamp, data['date'], data['sick_total'], data['sick_day'], data['healed_total'], data['healed_day'],
         data['die_total'], data['die_day'])
     curs.execute("insert into russian_general values (?,?,?,?,?,?,?,?);", record_data)
     conn.commit()
     for city in data['Cities']:
         record_data = (
-            time.time(), data['date'], city, data['Cities'][city][0], data['Cities'][city][1],
+            timestamp, data['date'], city, data['Cities'][city][0], data['Cities'][city][1],
             data['Cities'][city][2])
         curs.execute("insert into russian_region values (?,?,?,?,?,?);", record_data)
     conn.commit()
