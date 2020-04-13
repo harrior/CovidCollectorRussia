@@ -35,7 +35,7 @@ def parse_data(raw_html):
     scrap_data = {'date': ' '.join(BSparser.find('div', {'class': 'd-map__title'}).text.split(' ')[-3::])}
 
     fields = (("sick_total", "sick_day"), ("healed_total", "healed_day"), ("die_total", "die_day"))
-    for i, counter in enumerate(BSparser.find('div', {'class': 'd-map__counter'}).find_all('div')):
+    for i, counter in enumerate(BSparser.find('div', {'class': 'd-map__counter'}).find_all('div')[1:]):
         values = list(map(int, counter.find('h3').text.replace(' ', '').split('+')))
         scrap_data[fields[i][0]] = values[0]
         scrap_data[fields[i][1]] = 0 if len(values) == 1 else values[1]
@@ -92,7 +92,7 @@ def update_stat():
 
 if __name__ == '__main__':
     print(update_stat())
-    #print(get_last_check())
-    #print(get_last_check_by_region())
-    #s = '\n'.join(['|'.join(list(map(str, i[2:]))) for i in get_last_check_by_region()])
-    #print(s)
+    print(get_last_check())
+    print(get_last_check_by_region())
+    s = '\n'.join(['|'.join(list(map(str, i[2:]))) for i in get_last_check_by_region()])
+    print(s)
